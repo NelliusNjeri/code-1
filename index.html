@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mother's Day Botanical Card</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#fff1f2,#ffe4e6,#fff7ed);
+    overflow:hidden;
+    font-family: "Georgia", serif;
+}
+
+/* ---------- CARD ---------- */
+
+.scene{
+    perspective:2000px;
+}
+
+.card{
+    width:340px;
+    height:460px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform 1.4s cubic-bezier(.23,1,.32,1);
+    cursor:pointer;
+}
+
+.card.open{
+    transform:rotateY(-180deg);
+}
+
+/* ---------- FRONT ---------- */
+
+.front,
+.back{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    backface-visibility:hidden;
+    overflow:hidden;
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+
+.front{
+    background:
+      radial-gradient(circle at top left,#fff,#ffe4e6 60%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+/* Botanical design */
+
+.botanical{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.rose{
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,#ff5c8a 15%,#e11d48 55%,transparent 56%);
+    filter:blur(1px);
+    opacity:.15;
+}
+
+.rose:nth-child(1){
+    top:-20px;
+    left:-20px;
+}
+
+.rose:nth-child(2){
+    bottom:-30px;
+    right:-10px;
+}
+
+.leaf{
+    position:absolute;
+    width:80px;
+    height:40px;
+    background:#86efac;
+    border-radius:0 50px 0 50px;
+    opacity:.2;
+}
+
+.leaf1{
+    top:70px;
+    right:40px;
+    transform:rotate(30deg);
+}
+
+.leaf2{
+    bottom:90px;
+    left:30px;
+    transform:rotate(-20deg);
+}
+
+/* Front text */
+
+.front-content{
+    text-align:center;
+    z-index:2;
+}
+
+.front h1{
+    font-size:2.7rem;
+    color:#9f1239;
+    letter-spacing:2px;
+    margin-bottom:15px;
+}
+
+.front p{
+    color:#7f1d1d;
+    font-size:1rem;
+    letter-spacing:1px;
+}
+
+.tap{
+    margin-top:40px;
+    font-size:.9rem;
+    color:#be123c;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:.5;}
+    50%{opacity:1;}
+}
+
+/* ---------- BACK ---------- */
+
+.back{
+    transform:rotateY(180deg);
+    background:
+      linear-gradient(135deg,#fffdf8,#fff1f2);
+    padding:45px 35px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.back h2{
+    color:#9f1239;
+    font-size:2rem;
+    margin-bottom:25px;
+}
+
+.message{
+    color:#5b2132;
+    line-height:1.9;
+    font-size:1.05rem;
+}
+
+.signature{
+    margin-top:35px;
+    font-style:italic;
+    color:#be123c;
+    font-size:1.1rem;
+}
+
+/* ---------- PETALS ---------- */
+
+.petals{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.petal{
+    position:absolute;
+    width:18px;
+    height:18px;
+    background:linear-gradient(135deg,#fb7185,#fda4af);
+    border-radius:70% 0 70% 0;
+    opacity:.9;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    0%{
+        transform:
+            translateY(-100px)
+            rotate(0deg);
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translateY(110vh)
+            translateX(100px)
+            rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* Glow */
+
+.front::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,.6),
+            transparent
+        );
+    transform:translateX(-100%);
+    animation:shine 5s infinite;
+}
+
+@keyframes shine{
+    100%{
+        transform:translateX(200%);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="scene">
+    <div class="card" id="card">
+
+        <!-- FRONT -->
+        <div class="front">
+
+            <div class="botanical">
+                <div class="rose"></div>
+                <div class="rose"></div>
+
+                <div class="leaf leaf1"></div>
+                <div class="leaf leaf2"></div>
+            </div>
+
+            <div class="front-content">
+                <h1>Happy<br>Mother's Day</h1>
+                <p>With love, gratitude & roses</p>
+
+                <div class="tap">
+                    Click or tap to open 🌸
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BACK -->
+        <div class="back">
+
+            <h2>Dear Mom,</h2>
+
+            <div class="message">
+                Thank you for every quiet sacrifice,
+                every comforting word,
+                and every moment of love you've
+                poured into my life.
+
+                <br><br>
+
+                Your kindness blooms in everything
+                you touch, and your strength inspires
+                me more than words can say.
+
+                <br><br>
+
+                Today is a celebration of your beautiful heart —
+                and how lucky I am to call you my mother.
+            </div>
+
+            <div class="signature">
+                With all my love 💖
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="petals" id="petals"></div>
+
+<script>
+
+const card = document.getElementById('card');
+const petalsContainer = document.getElementById('petals');
+
+card.addEventListener('click', () => {
+
+    card.classList.toggle('open');
+
+    if(card.classList.contains('open')){
+        createPetals();
+    }
+
+});
+
+function createPetals(){
+
+    for(let i = 0; i < 35; i++){
+
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+
+        petal.style.animationDuration =
+            (4 + Math.random() * 5) + 's';
+
+        petal.style.animationDelay =
+            Math.random() * 1 + 's';
+
+        petal.style.transform =
+            `rotate(${Math.random()*360}deg)`;
+
+        petalsContainer.appendChild(petal);
+
+        setTimeout(()=>{
+            petal.remove();
+        },9000);
+    }
+}
+
+</script>
+
+</body>
+</html>
